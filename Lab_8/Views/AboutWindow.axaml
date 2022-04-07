@@ -1,0 +1,26 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="120"
+		MinWidth="450" MinHeight="120" MaxWidth="450" MaxHeight="120"
+        x:Class="Lab_8.Views.AboutWindow"
+        Title="Справка">
+
+	<Window.Styles>
+		<Style Selector="Border">
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="BorderBrush" Value="#353549"/>
+			<Setter Property="Background" Value="#21212C"/>
+		</Style>
+	</Window.Styles>
+
+	<Border>
+		<Grid RowDefinitions="Auto, Auto, Auto, *">
+			<TextBlock Text="Лабораторную выполнил:" FontSize="20" Margin="10, 10, 0, 0"/>
+			<TextBlock Text="ИП-016 Никоноров А.С." FontSize="20" Margin="10, 50, 0, 0"/>
+			<TextBlock Text="Не так уж и устал :)" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Bottom" Foreground="Gray"/>
+			<Button Name="OkButton" Content="OK" Grid.Row="3" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></Button>
+		</Grid>
+	</Border>
+</Window>

@@ -1,0 +1,152 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Lab_8.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:model="using:Lab_8.Models"
+        mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="450"
+		MinHeight="450" MinWidth="700" Height="450" Width="700"
+        x:Class="Lab_8.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Lab_8">
+
+	<Window.Resources>
+		<model:BitmapAssetValueConverter x:Key="variableImage"/>
+	</Window.Resources>
+	
+	<Window.Styles>
+		<Style Selector="Border">
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="BorderBrush" Value="#353549"/>
+		</Style>
+		<Style Selector="Button">
+			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+			<Setter Property="VerticalAlignment" Value="Stretch"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="Background" Value="#353549"/>
+			<Setter Property="CornerRadius" Value="0,0,0,0"/>
+		</Style>
+		<Style Selector="TextBox">
+			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		</Style>
+		<Style Selector="Image">
+			<Setter Property="Margin" Value="0, 10, 0, 0"/>
+		</Style>
+	</Window.Styles>
+
+	<Border Background="#21212C">
+		<Grid RowDefinitions="Auto, *" ColumnDefinitions="*, *, *">
+			<Menu>
+				<MenuItem Header="File">
+					<MenuItem Header="New File" Command="{Binding NewTasks}"></MenuItem>
+					<Separator/>
+					<MenuItem Header="Open" Name="LoadFileButton"></MenuItem>
+					<MenuItem Header="Save As..." Name="SaveFileButton"></MenuItem>
+					<Separator/>
+					<MenuItem Header="Exit" Name="ExitButton"></MenuItem>
+				</MenuItem>
+				<MenuItem Header="About" Click="ClickEventAboutDialog">
+
+				</MenuItem>
+			</Menu>
+
+			<Grid Grid.Column="0" Grid.Row="1" RowDefinitions="Auto, *, Auto">
+				<Border Padding="10" Background="#353549" BorderBrush="#21212C">
+					<TextBlock Text="Запланировано" TextAlignment="Center"/>
+				</Border>
+				<Border Grid.Row="1">
+					<ScrollViewer>
+						<ItemsControl Items="{Binding Tasks[0]}">
+							<ItemsControl.ItemTemplate >
+								<DataTemplate>
+									<Expander Header="{Binding Name}"  HorizontalContentAlignment="Stretch">
+										<StackPanel>
+											<TextBlock Text="Header"/>
+											<TextBox Text="{Binding Name}"/>
+											<TextBlock Text="Task"/>
+											<TextBox Text="{Binding Text}" Height="100" TextWrapping="Wrap"/>
+											<Image Height="100" Width="100" Source="{Binding Path, Converter={StaticResource variableImage}}"/>
+											<Button Content="Add Image" Click="AddImageOnClick" Margin="0, 10, 0, 0"/>
+											<Button Content="Delete" Command="{Binding $parent[Window].DataContext.DeletePlannedTask}" CommandParameter="{Binding}" Margin="0, 5, 0, 0" />
+										</StackPanel>
+									</Expander>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+					</ScrollViewer>
+				</Border>
+				<Border Grid.Row="2">
+					<Button Command="{Binding AddTask}" CommandParameter="0" >
+						<Image Source="../Assets/AddTask.png" Height="23" Width="23" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, -3, 0, 0"/>
+					</Button>
+				</Border>
+			</Grid>
+
+			<Grid Grid.Column="1" Grid.Row="1" RowDefinitions="Auto, *, Auto">
+				<Border Padding="10" Background="#353549" BorderBrush="#21212C">
+					<TextBlock Text="В работе" TextAlignment="Center"/>
+				</Border>
+				<Border Grid.Row="1">
+					<ScrollViewer>
+						<ItemsControl Items="{Binding Tasks[1]}">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Expander Header="{Binding Name}" HorizontalContentAlignment="Stretch">
+										<StackPanel>
+											<TextBlock Text="Header"/>
+											<TextBox Text="{Binding Name}"/>
+											<TextBlock Text="Task"/>
+											<TextBox Text="{Binding Text}" Height="100" TextWrapping="Wrap"/>
+											<Image Height="100" Width="100" Source="{Binding Path, Converter={StaticResource variableImage}}"/>
+											<Button Content="Add Image" Click="AddImageOnClick" Margin="0, 10, 0, 0"/>
+											<Button Content="Delete" Command="{Binding $parent[Window].DataContext.DeleteInWorkTask}" CommandParameter="{Binding}" Margin="0, 5, 0, 0"/>
+										</StackPanel>
+									</Expander>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+					</ScrollViewer>
+				</Border>
+				<Border Grid.Row="2">
+					<Button Command="{Binding AddTask}" CommandParameter="1" >
+						<Image Source="../Assets/AddTask.png" Height="23" Width="23" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, -3, 0, 0"/>
+					</Button>
+				</Border>
+			</Grid>
+
+			<Grid Grid.Column="2" Grid.Row="1" RowDefinitions="Auto, *, Auto">
+				<Border Padding="10" Background="#353549" BorderBrush="#21212C">
+					<TextBlock Text="Завершено" TextAlignment="Center"/>
+				</Border>
+				<Border Grid.Row="1">
+					<ScrollViewer>
+						<ItemsControl Items="{Binding Tasks[2]}">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Expander Header="{Binding Name}" HorizontalContentAlignment="Stretch">
+										<StackPanel>
+											<TextBlock Text="Header"/>
+											<TextBox Text="{Binding Name}"/>
+											<TextBlock Text="Task"/>
+											<TextBox Text="{Binding Text}" Height="100" TextWrapping="Wrap"/>
+											<Image Height="100" Width="100" Source="{Binding Path, Converter={StaticResource variableImage}}"/>
+											<Button Content="Add Image" Click="AddImageOnClick" Margin="0, 10, 0, 0"/>
+											<Button Content="Delete" Command="{Binding $parent[Window].DataContext.DeleteCompletedTask}" CommandParameter="{Binding}" Margin="0, 5, 0, 0"/>
+										</StackPanel>
+									</Expander>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+					</ScrollViewer>
+				</Border>
+				<Border Grid.Row="2">
+					<Button Command="{Binding AddTask}" CommandParameter="2" >
+						<Image Source="../Assets/AddTask.png" Height="23" Width="23" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, -3, 0, 0"/>
+					</Button>
+				</Border>
+			</Grid>
+			
+		</Grid>
+	</Border>
+	
+</Window>
